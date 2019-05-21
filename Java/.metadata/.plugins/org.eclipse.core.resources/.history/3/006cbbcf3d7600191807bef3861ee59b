@@ -1,0 +1,11 @@
+package acao;
+
+import beans.Sistema;
+
+public class Acao {
+	
+	public void cadastrar (Sistema s) {
+		
+	}
+
+}

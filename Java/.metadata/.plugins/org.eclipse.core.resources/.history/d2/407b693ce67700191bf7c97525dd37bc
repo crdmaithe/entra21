@@ -1,0 +1,37 @@
+package acao;
+
+import javax.swing.table.DefaultTableModel;
+
+import dados.Dados;
+import formulario.Formulario;
+
+public class Acao {
+
+	
+	//somar
+	public static void somar() {
+		
+		
+		int qtdAtual1 = Integer.parseInt(Formulario.txtQtd.getText()) + 1;
+		Formulario.txtQtd.setText(String.valueOf(qtdAtual1));
+
+		int azul = 0;
+		azul = azul + 1;
+		
+	}
+	
+	// Seleção
+		public DefaultTableModel selecionar() {
+
+			DefaultTableModel modelo = new DefaultTableModel();
+			modelo.addColumn("Produto");
+			modelo.addColumn("Quantidade");
+
+			for (int indice = 0; indice < Dados.arrayCarrinho.size(); indice++) {
+				modelo.addRow(new Object[] { Dados.arrayCarrinho.get(indice).getProduto(),
+						Dados.arrayCarrinho.get(indice).getQuantidade() });
+
+			}
+			return modelo;
+		}
+}

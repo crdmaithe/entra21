@@ -1,0 +1,219 @@
+package formulario;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
+import acao.Acao;
+import beans.Jogos;
+
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.Cursor;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JToolBar;
+import javax.swing.JMenuBar;
+import javax.swing.JTable;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.BorderLayout;
+
+public class Formulario extends JFrame {
+	private JTextField textNome;
+	private JTextField textValor;
+	private JTable table_1;
+	private static int codigoJogo;
+
+	private void limparCampos() {
+		// Limpar os campos
+		textNome.setText("");
+		textValor.setText("");
+
+		// Focus
+		textNome.requestFocus();
+
+	}
+
+	public Formulario() {
+		setSize(655, 611);
+		getContentPane().setEnabled(false);
+		getContentPane().setLayout(null);
+
+		// Botão Cadastrar
+		JButton btnCadastrar = new JButton("Cadastrar");
+		
+		//Botão Alterar
+		JButton btnAlterar = new JButton("Alterar");
+
+		// Objeto de classe Acao
+		Acao a = new Acao();
+
+		// JLabels utilizados
+		JLabel lblCadastroDeJogos = new JLabel("Cadastro de Jogos");
+		lblCadastroDeJogos.setFont(new Font("Nirmala UI Semilight", Font.PLAIN, 23));
+		lblCadastroDeJogos.setBounds(227, 21, 181, 38);
+		getContentPane().add(lblCadastroDeJogos);
+
+		JLabel lblNomeDoJogo = new JLabel("Nome:");
+		lblNomeDoJogo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNomeDoJogo.setBounds(10, 93, 55, 14);
+		getContentPane().add(lblNomeDoJogo);
+
+		JLabel lblGnero = new JLabel("G\u00EAnero:");
+		lblGnero.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblGnero.setBounds(360, 93, 55, 14);
+		getContentPane().add(lblGnero);
+
+		JLabel lblClassificaoIndicativa = new JLabel("Classifica\u00E7\u00E3o indicativa:");
+		lblClassificaoIndicativa.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblClassificaoIndicativa.setBounds(10, 189, 140, 14);
+		getContentPane().add(lblClassificaoIndicativa);
+
+		JLabel lblPlataforma = new JLabel("Plataforma:");
+		lblPlataforma.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPlataforma.setBounds(10, 138, 75, 20);
+		getContentPane().add(lblPlataforma);
+
+		JLabel lblValor = new JLabel("Valor:");
+		lblValor.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblValor.setBounds(360, 138, 48, 20);
+		getContentPane().add(lblValor);
+
+		// Campo de texto
+		textNome = new JTextField();
+		textNome.setBounds(59, 92, 214, 20);
+		getContentPane().add(textNome);
+		textNome.setColumns(10);
+
+		// Combo do Gênero
+		JComboBox comboGenero = new JComboBox();
+		comboGenero.setBounds(418, 91, 135, 22);
+		getContentPane().add(comboGenero);
+		comboGenero.addItem("");
+		comboGenero.addItem("Terror");
+		comboGenero.addItem("RPG");
+		comboGenero.addItem("Corrida");
+
+		// Combo da Classificação
+		JComboBox comboClass = new JComboBox();
+		comboClass.setBounds(160, 188, 135, 20);
+		getContentPane().add(comboClass);
+		comboClass.addItem("");
+		comboClass.addItem("até 12 anos");
+		comboClass.addItem("12 à 14 anos");
+		comboClass.addItem("14 à 17 anos");
+		comboClass.addItem("acima de 18 anos");
+
+		// Combo da Plataforma
+		JComboBox comboPlatf = new JComboBox();
+		comboPlatf.setBounds(88, 139, 140, 22);
+		getContentPane().add(comboPlatf);
+		comboPlatf.addItem("");
+		comboPlatf.addItem("PlayStation");
+		comboPlatf.addItem("XBox");
+		comboPlatf.addItem("Computador");
+		comboPlatf.addItem("Switch");
+
+		// Txt do valor
+		textValor = new JTextField();
+		textValor.setBounds(401, 140, 121, 20);
+		getContentPane().add(textValor);
+		textValor.setColumns(10);
+
+		// Lista de jogos cadastrados
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 251, 619, 310);
+		getContentPane().add(scrollPane);
+
+		table_1 = new JTable();
+		
+		table_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+
+				// Obter o índice da tabela
+				int indice = table_1.getSelectedRow();
+
+				// Adicionar o valor do indice no atributo
+				codigoJogo = indice;
+
+				// Selecionando dados do curso
+				textNome.setText(table_1.getValueAt(indice, 0).toString());
+				comboGenero.setActionCommand(table_1.getValueAt(indice, 1).toString());
+				comboPlatf.setActionCommand(table_1.getValueAt(indice, 2).toString());
+				comboClass.setActionCommand(table_1.getValueAt(indice, 4).toString());;
+				textValor.setText(table_1.getValueAt(indice, 3).toString());
+
+				// Botões
+				btnCadastrar.setEnabled(false);
+				btnAlterar.setEnabled(true);
+				//btnExcluir.setEnabled(true);
+				//btnCancelar.setEnabled(true);
+
+			}
+		});
+		scrollPane.setColumnHeaderView(table_1);
+		table_1.setModel(a.selecionar());
+		scrollPane.setViewportView(table_1);
+
+		// Botão cadastrar
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				// Criar um objeto Jogos
+				Jogos j = new Jogos();
+				j.setNomeJogo(textNome.getText());
+				j.setValorJogo(textValor.getText());
+				j.setGenero(comboGenero.getSelectedItem().toString());
+				j.setClassif(comboClass.getSelectedItem().toString());
+				j.setPlataforma(comboPlatf.getSelectedItem().toString());
+
+				// Efetuar o cadastro
+				a.cadastrar(j);
+
+				limparCampos();
+
+				// Atualizar tabela
+				table_1.setModel(a.selecionar());
+
+			}
+		});
+		btnCadastrar.setBounds(48, 216, 89, 23);
+		getContentPane().add(btnCadastrar);
+
+		// Botão alterar
+		btnAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//Pega as informações que estavam na lista 
+				Jogos j = new Jogos();
+				j.setNomeJogo(textNome.getText());
+				j.setValorJogo(textValor.getText());
+				
+				// Realiza a alteração
+				a.alterar(codigoJogo, j);
+				
+				limparCampos();
+				
+				// Atualizar tabela
+				table_1.setModel(a.selecionar());
+			}
+		});
+		btnAlterar.setBounds(275, 216, 89, 23);
+		getContentPane().add(btnAlterar);
+		
+		
+		// Botão alterar
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setBounds(490, 216, 89, 23);
+		getContentPane().add(btnExcluir);
+
+	}
+}

@@ -1,0 +1,15 @@
+package acao;
+
+import beans.IMC;
+import dados.Dados;
+
+public class Acao {
+
+	//Cadastrar
+	public void cadastrar(IMC i) {
+		Dados.arrayIMC.add(i);
+	}
+	
+	//Selecionar
+	
+}

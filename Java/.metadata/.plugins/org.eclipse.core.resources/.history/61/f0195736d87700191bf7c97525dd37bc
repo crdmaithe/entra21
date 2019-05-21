@@ -1,0 +1,124 @@
+package acao;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import beans.IMC;
+import dados.Dados;
+import formulario.Formulario;
+
+public class Acao {
+
+	// Cadastrar
+	public void cadastrar(IMC i) {
+		Dados.arrayIMC.add(i);
+	}
+
+	// Cadastra o usuário
+	public static void cadastrar() {
+
+		// Objeto de classe Acao
+		Acao a = new Acao();
+		// Criar um objeto Jogos
+		IMC i = new IMC();
+		i.setNome(Formulario.txtNome.getText());
+		i.setIdade(Formulario.txtIdade.getText());
+		i.setAltura(Formulario.txtAltura.getText());
+		i.setPeso(Formulario.txtPeso.getText());
+
+		// Efetuar o cadastro
+		a.cadastrar(i);
+
+		// limparCampos();
+
+		// Atualizar tabela
+		Formulario.table.setModel(a.selecionar());
+
+		Formulario.btnCadastrar.setEnabled(true);
+		Formulario.btnAlterar.setEnabled(false);
+		Formulario.btnExcluir.setEnabled(false);
+	}
+
+	// Alteração / Atualização
+	public void alterar(int indice, IMC i) {
+		Dados.arrayIMC.set(indice, i);
+	}
+
+	public static void alterarS() {
+
+		// Objeto de classe Acao
+		Acao a = new Acao();
+		// duplicidade();
+
+		// Pega as informações que estavam na lista
+		IMC i = new IMC();
+		i.setNome(Formulario.txtNome.getText());
+		i.setIdade(Formulario.txtIdade.getText());
+		i.setAltura(Formulario.txtAltura.getText());
+		i.setPeso(Formulario.txtPeso.getText());
+
+		// Realiza a alteração
+		a.alterar(Formulario.codigoIMC, i);
+
+		// Atualizar tabela
+		Formulario.table.setModel(a.selecionar());
+
+		Formulario.btnCadastrar.setEnabled(true);
+		Formulario.btnAlterar.setEnabled(false);
+		Formulario.btnExcluir.setEnabled(false);
+
+	}
+
+	public static void excluirS(int indice) {
+
+		Dados.arrayIMC.remove(indice);
+
+		// Objeto de classe Acao
+		Acao a = new Acao();
+
+		// Pega as informações que estavam na lista
+		IMC i = new IMC();
+		i.setNome(Formulario.txtNome.getText());
+		i.setIdade(Formulario.txtIdade.getText());
+		i.setAltura(Formulario.txtAltura.getText());
+		i.setPeso(Formulario.txtPeso.getText());
+
+		// Atualizar tabela
+		Formulario.table.setModel(a.selecionar());
+
+		Formulario.btnCadastrar.setEnabled(true);
+		Formulario.btnAlterar.setEnabled(false);
+		Formulario.btnExcluir.setEnabled(false);
+
+	}
+
+	// Selecionar
+	public DefaultTableModel selecionar() {
+
+		DefaultTableModel modelo = new DefaultTableModel();
+		modelo.addColumn("Nome");
+		modelo.addColumn("Idade");
+		modelo.addColumn("Altura");
+		modelo.addColumn("Peso");
+		modelo.addColumn("IMC");
+
+		for (int indice = 0; indice < Dados.arrayIMC.size(); indice++) {
+			modelo.addRow(new Object[] { Dados.arrayIMC.get(indice).getNome(), Dados.arrayIMC.get(indice).getIdade(),
+					Dados.arrayIMC.get(indice).getAltura(), Dados.arrayIMC.get(indice).getPeso(), Dados.arrayIMC });
+
+		}
+		return modelo;
+	}
+
+	// Verifica se tem nomes iguais
+	public static boolean duplicidade(boolean igual) {
+		for (int indice = 0; indice < Dados.arrayIMC.size(); indice++) {
+			if (Formulario.txtNome.getText().equals(Dados.arrayIMC.get(indice).getNome())) {
+				JOptionPane.showMessageDialog(null, "Este nome já existe");
+				igual = true;
+			}
+		}
+		return igual;
+	}
+
+}

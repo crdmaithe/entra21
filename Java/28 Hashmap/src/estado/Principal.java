@@ -1,0 +1,30 @@
+package estado;
+
+import java.util.HashMap;
+
+public class Principal {
+
+	public static void main(String[] args) {
+
+		// Criar um HashMap
+		HashMap<String, String> estados = new HashMap<String, String>();
+
+		// Adicionar
+		estados.put("Santa Catarina", " Florianópolis");
+		estados.put("Paraná", " Curitiba");
+		estados.put("Minas Gerais", " Belo Horizonte");
+		estados.put("Rio Grande do Sul", " Porto Alegre");
+
+
+		// Exibir informação específica
+		System.out.println(estados.get("Paraná"));
+		
+		//Remover uma informação
+		estados.remove("Paraná");
+
+		// Listar todos os valores
+		System.out.println(estados);
+		
+	}
+
+}

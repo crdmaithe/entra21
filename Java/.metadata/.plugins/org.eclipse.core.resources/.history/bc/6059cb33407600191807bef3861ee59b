@@ -1,0 +1,9 @@
+package cadUsuario;
+
+import javax.swing.JFrame;
+
+public class CadUsuario extends JFrame{
+	
+	JFrame cadastUsuario = new JFrame();
+
+}

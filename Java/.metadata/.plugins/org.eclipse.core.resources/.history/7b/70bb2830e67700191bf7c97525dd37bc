@@ -1,0 +1,150 @@
+package formulario;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import acao.Acao;
+import beans.Carrinho;
+import quantidade.Quantidade;
+
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Formulario extends JFrame {
+
+	private JPanel contentPane;
+	public static JTextField txtQtd = new JTextField("0");
+
+	public Formulario() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 708, 403);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		JButton btnAzul = new JButton("Camiseta azul");
+		btnAzul.setBounds(34, 81, 111, 78);
+		contentPane.add(btnAzul);
+
+		JButton btnCamisetaRosa = new JButton("Camiseta rosa");
+		btnCamisetaRosa.setBounds(194, 81, 111, 78);
+		contentPane.add(btnCamisetaRosa);
+
+		JButton btnCalaJeans = new JButton("Cal\u00E7a jeans ");
+		btnCalaJeans.setBounds(373, 81, 111, 78);
+		contentPane.add(btnCalaJeans);
+
+		JButton btnCalaSarja = new JButton("Cal\u00E7a sarja");
+		btnCalaSarja.setBounds(543, 81, 111, 78);
+		contentPane.add(btnCalaSarja);
+
+		JButton btnJaquetaJeans = new JButton("Jaqueta jeans");
+		btnJaquetaJeans.setBounds(34, 227, 111, 78);
+		contentPane.add(btnJaquetaJeans);
+
+		JButton btnMoletom = new JButton("Casaco \r\nmoletom");
+		btnMoletom.setBounds(194, 227, 113, 78);
+		contentPane.add(btnMoletom);
+
+		JButton btnTnisVans = new JButton("T\u00EAnis Vans");
+		btnTnisVans.setBounds(373, 227, 111, 78);
+		contentPane.add(btnTnisVans);
+
+		JButton btnSapatilha = new JButton("Sapatilha");
+		btnSapatilha.setBounds(543, 227, 111, 78);
+		contentPane.add(btnSapatilha);
+
+		JButton btnAzul1 = new JButton("+");
+		btnAzul1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Acao.somar();
+				
+			}
+		});
+		btnAzul1.setBounds(44, 170, 41, 23);
+		contentPane.add(btnAzul1);
+
+		JButton btnRosa1 = new JButton("+");
+		btnRosa1.setBounds(204, 170, 41, 23);
+		contentPane.add(btnRosa1);
+
+		JButton btnCalca1 = new JButton("+");
+		btnCalca1.setBounds(383, 170, 41, 23);
+		contentPane.add(btnCalca1);
+
+		JButton btnSarja1 = new JButton("+");
+		btnSarja1.setBounds(553, 170, 41, 23);
+		contentPane.add(btnSarja1);
+
+		JButton btnJaqt1 = new JButton("+");
+		btnJaqt1.setBounds(44, 316, 41, 23);
+		contentPane.add(btnJaqt1);
+
+		JButton btnMoletom1 = new JButton("+");
+		btnMoletom1.setBounds(204, 316, 41, 23);
+		contentPane.add(btnMoletom1);
+
+		JButton btnVans1 = new JButton("+");
+		btnVans1.setBounds(383, 316, 41, 23);
+		contentPane.add(btnVans1);
+
+		JButton btnSapat1 = new JButton("+");
+		btnSapat1.setBounds(553, 316, 41, 23);
+		contentPane.add(btnSapat1);
+
+		JButton btnAzul2 = new JButton("-");
+		btnAzul2.setBounds(95, 170, 41, 23);
+		contentPane.add(btnAzul2);
+
+		JButton btnRosa2 = new JButton("-");
+		btnRosa2.setBounds(255, 170, 41, 23);
+		contentPane.add(btnRosa2);
+
+		JButton btnCalca2 = new JButton("-");
+		btnCalca2.setBounds(434, 170, 41, 23);
+		contentPane.add(btnCalca2);
+
+		JButton btnSarja2 = new JButton("-");
+		btnSarja2.setBounds(604, 170, 41, 23);
+		contentPane.add(btnSarja2);
+
+		JButton btnJaqt2 = new JButton("-");
+		btnJaqt2.setBounds(95, 316, 41, 23);
+		contentPane.add(btnJaqt2);
+
+		JButton btnMoletom2 = new JButton("-");
+		btnMoletom2.setBounds(255, 316, 41, 23);
+		contentPane.add(btnMoletom2);
+
+		JButton btnVans2 = new JButton("-");
+		btnVans2.setBounds(434, 316, 41, 23);
+		contentPane.add(btnVans2);
+
+		JButton btnSapat2 = new JButton("-");
+		btnSapat2.setBounds(604, 316, 41, 23);
+		contentPane.add(btnSapat2);
+
+		txtQtd = new JTextField();
+		txtQtd.setBounds(515, 32, 96, 20);
+		contentPane.add(txtQtd);
+		txtQtd.setColumns(10);
+
+		JButton btnQuantidade = new JButton("Quantidade");
+		btnQuantidade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Quantidade q = new Quantidade();
+				q.setVisible(true);
+			}
+		});
+		btnQuantidade.setBounds(403, 21, 102, 43);
+		contentPane.add(btnQuantidade);
+	}
+
+}

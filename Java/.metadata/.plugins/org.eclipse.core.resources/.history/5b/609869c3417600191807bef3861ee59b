@@ -1,0 +1,67 @@
+package formulario;
+
+import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
+import cadUsuario.CadUsuario;
+
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Formulario extends JFrame {
+
+	private JTextField txtNome;
+	private JTextField txtArea;
+	private JTable table;
+	private JTextField textField;
+	private JTextField textField_1;
+
+	public Formulario() {
+		getContentPane().setLayout(null);
+
+		JLabel lblLogin = new JLabel("Conta:");
+		lblLogin.setBounds(43, 65, 48, 14);
+		getContentPane().add(lblLogin);
+
+		JLabel lblSenha = new JLabel("Senha:");
+		lblSenha.setBounds(43, 104, 48, 14);
+		getContentPane().add(lblSenha);
+
+		textField = new JTextField();
+		textField.setBounds(84, 62, 174, 20);
+		getContentPane().add(textField);
+		textField.setColumns(10);
+
+		textField_1 = new JTextField();
+		textField_1.setBounds(84, 101, 174, 20);
+		getContentPane().add(textField_1);
+		textField_1.setColumns(10);
+
+		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				CadUsuario usuario = new CadUsuario();
+
+			}
+		});
+		btnCadastrar.setBounds(29, 151, 89, 23);
+		getContentPane().add(btnCadastrar);
+
+		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.setBounds(202, 151, 89, 23);
+		getContentPane().add(btnEntrar);
+
+		JLabel lblLogin_1 = new JLabel("Login");
+		lblLogin_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblLogin_1.setBounds(133, 11, 43, 23);
+		getContentPane().add(lblLogin_1);
+
+	}
+}

@@ -1,0 +1,12 @@
+package acao;
+
+import beans.Sistema;
+import dados.Dados;
+
+public class Acao {
+	
+	public void cadastrar (Sistema s) {
+		Dados.arrayUsuarios.add(s);
+	}
+
+}

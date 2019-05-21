@@ -1,0 +1,18 @@
+package cadUsuario;
+
+import javax.swing.JFrame;
+
+public class CadUsuario extends JFrame{
+	
+	public CadUsuario() {
+		
+		JFrame cadastUsuario = new JFrame();
+		cadastUsuario.setVisible(true);
+		cadastUsuario.setSize(600, 500);
+		cadastUsuario.setLocationRelativeTo(null);
+		
+	}
+	
+	
+
+}

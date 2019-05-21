@@ -1,0 +1,12 @@
+package dados;
+
+import java.util.ArrayList;
+
+import beans.IMC;
+
+public class Dados {
+
+	// ArrayList
+	public static ArrayList<IMC> arrayJogos = new ArrayList<IMC>();
+
+}

@@ -1,0 +1,18 @@
+package acao;
+
+import formulario.Formulario;
+
+public class Acao {
+
+	
+	//somar
+	public static void somar() {
+		int qtdAtual1 = Integer.parseInt(Formulario.txtQtd.getText()) + 1;
+		Formulario.txtQtd.setText(String.valueOf(qtdAtual1));
+
+		int azul = 0;
+		azul = azul + 1;
+		System.out.println(azul);
+		
+	}
+}

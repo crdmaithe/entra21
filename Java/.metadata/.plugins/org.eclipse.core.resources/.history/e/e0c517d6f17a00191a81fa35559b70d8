@@ -1,0 +1,10 @@
+package cargos;
+
+public class Cargo {
+
+	// IR
+	public void ir() {
+
+	}
+
+}

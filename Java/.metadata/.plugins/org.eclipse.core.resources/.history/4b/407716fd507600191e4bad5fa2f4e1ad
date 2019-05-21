@@ -1,0 +1,14 @@
+package acao;
+import beans.Salario;
+import dados.Dados;
+
+public class Acao {
+
+	// CRUD - Creat, Read, Update and Delete / Criar, ler, atualizar e excluir
+
+	// Cadastro
+	public void cadastrar(Salario s) {
+		Dados.arraySalario.add(s);
+	}
+
+}
