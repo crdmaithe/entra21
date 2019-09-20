@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedidos</title>
+
+    <!--CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+
+
+    <script>
+
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBYtdhCJW_A4nKXa5D3JwOwnvzhxC9bx5k",
+            authDomain: "petshop-e2161.firebaseapp.com",
+            databaseURL: "https://petshop-e2161.firebaseio.com",
+            projectId: "petshop-e2161",
+            storageBucket: "petshop-e2161.appspot.com",
+            messagingSenderId: "1079690730674",
+            appId: "1:1079690730674:web:da4c182fc65be875"
+        };
+
+        firebase.initializeApp({
+            apiKey: "AIzaSyBYtdhCJW_A4nKXa5D3JwOwnvzhxC9bx5k",
+            authDomain: "petshop-e2161.firebaseapp.com",
+            projectId: "petshop-e2161"
+        });
+        // Inicialização
+        var db = firebase.firestore();
+
+    function mudarNumero(num){
+        var cd = document.querySelector("#mudarAbas");
+        console.log(num);
+        if(num==1){
+            cd.innerHTML=
+            `<div class="grid">
+                <div class="row">
+                    <div class="col-sm">
+                        <h6>Produtos</h6>
+                        <div class="row" style="margin-left: 7px">
+                            <li style="width: 300px">Bolinhas (Furacão Pet)</li>
+                        </div>
+                        <div class="row" style="margin-left: 7px">
+                            <li style="width: 300px">Ração para cachorro 5kg (Pedigree)</li>
+                        </div>
+                        <div class="row" style="margin-left: 7px">
+                            <li style="width: 300px">Ração para gato 1kg (Whiskas)</li>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <h6 style="margin-left: 0px">Quantidade</h6>
+                        <div class="row" style="margin-left: 30px">
+                            2
+                        </div>
+                        <div class="row" style="margin-left: 30px">
+                            1
+                        </div>
+                        <div class="row" style="margin-left: 30px">
+                            1
+                        </div>
+                        <div class="row" style="margin-left: 20px">
+                            <br>
+                            <h6>Total: </h6>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <h6>Valor (R$)</h6>
+                            <div class="row" style="margin-left: 20px">
+                                20,0
+                            </div>
+                            <div class="row" style="margin-left: 20px">
+                                65,0
+                            </div>
+                            <div class="row" style="margin-left: 20px">
+                                30,0
+                            </div>
+                            <div class="row" style="margin-left: 17px">
+                                <p>
+                                    <h6>135,0</h6>
+                                </p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+        }else if(num==2){
+            cd.innerHTML=
+            `<div class="card-body">Status do Pedido:
+                <br>
+                <button href="#" class="btn btn-primary" style="width: 150px; height: 90px; background-color:rgb(255, 150, 0); border-color: rgb(255, 150, 0); 
+                    margin-left: 25px; margin-right: 25px">Aguardando emissão de nota fiscal</button>
+                <button href="#" class="btn btn-primary" style="width: 150px; height: 90px; background-color:rgb(255, 150, 0); border-color: rgb(255, 150, 0); 
+                    margin-left: 25px; margin-right: 25px">Pedido em transporte via Correios </button>
+                <button href="#" class="btn btn-primary" style="width: 150px; height: 90px; background-color:rgb(255, 150, 0); border-color: rgb(255, 150, 0); 
+                    margin-left: 25px; margin-right: 25px">Pedido entregue no endereço do cliente</button>
+            </div>`;
+        }else{
+            cd.innerHTML=
+            `<div class="grid">
+                <div class="row">
+                    <div class="col-sm">
+                        <h6>Dados do cliente</h6>
+                            <div class="row" style="margin-left: 7px">
+                                Maithê Virginia Cordeiro 
+                            </div>
+                            <div class="row" style="margin-left: 7px">
+                                Data de nascimento: 15/09/1998
+                            </div>
+                            <div class="row" style="margin-left: 7px">
+                                E-mail: maithe.cordeiro@gmail.com
+                            </div>
+                            <div class="row" style="margin-left: 7px">
+                                Telefone: (47)99602-6139
+                            </div>
+                    </div>
+                        
+                    <div class="col-sm">
+                        <h6>Endereço para entrega</h6>
+                            <div class="row" style="margin-left: 7px">
+                                Rua Marechal Hermes da Fonseca
+                            </div>
+                            <div class="row" style="margin-left: 7px">
+                                N° 236
+                            </div>
+                            <div class="row" style="margin-left: 7px">
+                                    Bairro: Salto Weissbach
+                            </div>
+                            <div class="row" style="margin-left: 7px">
+                                Blumenau - SC
+                            </div>
+                    </div>
+                </div>
+            </div>`;
+        }
+    }
+
+    function mudarNumero2(num2){
+        console.log(num2);
+        var cd2 = document.querySelector("#mudarAbas2");
+        if(num2==1){
+            cd2.innerHTML= 
+            `<div class="grid">
+                <div class="row">
+                    <div class="col-sm">
+                        <h6>Produtos</h6>
+                        <div class="row" style="margin-left: 7px">
+                            <li style="width: 300px">Bolinhas (Furacão Pet)</li>
+                        </div>
+                        <div class="row" style="margin-left: 7px">
+                            <li style="width: 300px">Ração para cachorro 5kg (Pedigree)</li>
+                        </div>
+                        <div class="row" style="margin-left: 7px">
+                            <li style="width: 300px">Ração para gato 1kg (Whiskas)</li>
+                        </div>
+                        <div class="row" style="margin-left: 7px">
+                            <li style="width: 300px">Pote para água 500ml (Furacão Pet)</li>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <h6 style="margin-left: 0px">Quantidade</h6>
+                        <div class="row" style="margin-left: 30px">
+                            2
+                        </div>
+                        <div class="row" style="margin-left: 30px">
+                            1
+                        </div>
+                        <div class="row" style="margin-left: 30px">
+                            1
+                        </div>
+                        <div class="row" style="margin-left: 30px">
+                            1
+                        </div>
+                        <div class="row" style="margin-left: 20px">
+                            <br>
+                            <h6>Total: </h6>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <h6>Valor (R$)</h6>
+                            <div class="row" style="margin-left: 20px">
+                                20,0
+                            </div>
+                            <div class="row" style="margin-left: 20px">
+                                65,0
+                            </div>
+                            <div class="row" style="margin-left: 20px">
+                                30,0
+                            </div>
+                            <div class="row" style="margin-left: 20px">
+                                20,0
+                            </div>
+                            <div class="row" style="margin-left: 17px">
+                            <p>
+                                <h6>155,0</h6>
+                            </p>
+                        </div>   
+                    </div>
+                </div>
+            </div>`;
+        }else if(num2==3){
+            cd2.innerHTML= 
+            `<div class="grid">
+                                <div class="row">
+                                <div class="col-sm">
+                                    <h6>Dados do cliente</h6>
+                                        <div class="row" style="margin-left: 7px">
+                                            Luan Christian
+                                        </div>
+                                        <div class="row" style="margin-left: 7px">
+                                            Data de nascimento: 
+                                        </div>
+                                        <div class="row" style="margin-left: 7px">
+                                            E-mail: luanchristian.live@gmail.com
+                                        </div>
+                                        <div class="row" style="margin-left: 7px">
+                                            Telefone: (47)99608-5607
+                                        </div>
+                                </div>
+                            
+                                <div class="col-sm">
+                                    <h6>Endereço para entrega</h6>
+                                        <div class="row" style="margin-left: 7px">
+                                            Rua Marechal Hermes da Fonseca
+                                        </div>
+                                        <div class="row" style="margin-left: 7px">
+                                            N° 236
+                                        </div>
+                                        <div class="row" style="margin-left: 7px">
+                                                Bairro: Salto Weissbach
+                                        </div>
+                                        <div class="row" style="margin-left: 7px">
+                                            Blumenau - SC
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>`
+        }else{
+            cd2.innerHTML= 
+            `<div class="card-body">Status do Pedido:
+                <br>
+                <button href="#" class="btn btn-primary" style="width: 150px; height: 90px; background-color:rgb(255, 150, 0); border-color: rgb(255, 150, 0); 
+                    margin-left: 25px; margin-right: 25px">Aguardando emissão de nota fiscal</button>
+                <button href="#" class="btn btn-primary" style="width: 150px; height: 90px; background-color:rgb(255, 150, 0); border-color: rgb(255, 150, 0); 
+                    margin-left: 25px; margin-right: 25px">Pedido em transporte via Correios </button>
+                <button href="#" class="btn btn-primary" style="width: 150px; height: 90px; background-color:rgb(255, 150, 0); border-color: rgb(255, 150, 0); 
+                    margin-left: 25px; margin-right: 25px">Pedido entregue no endereço do cliente</button>
+            </div>`;
+        }
+    }
+
+
+    function mudarNumero3(num3){
+        console.log(num3);
+        var cd3 = document.querySelector("#mudarAbas3");
+        if(num3==1){
+            cd3.innerHTML=
+            `<div class="grid">
+                <div class="row">
+                    <div class="col-sm">
+                        <h6>Produtos</h6>
+                        <div class="row" style="margin-left: 7px">
+                            <li style="width: 300px">Pote para comida 500ml (Furacão Pet)</li>
+                        </div>
+                        <div class="row" style="margin-left: 7px">
+                            <li style="width: 300px">Ração para cachorro 7,5kg (Pedigree)</li>
+                        </div>
+                        <div class="row" style="margin-left: 7px">
+                            <li style="width: 300px">Ração para gato 1kg (Whiskas)</li>
+                        </div>
+                        <div class="row" style="margin-left: 7px">
+                            <li style="width: 300px">Pote para água 500ml (Furacão Pet)</li>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <h6>Quantidade</h6>
+                        <div class="row" style="margin-left: 30px">
+                            1
+                        </div>
+                        <div class="row" style="margin-left: 30px">
+                            1
+                        </div>
+                        <div class="row" style="margin-left: 30px">
+                            1
+                        </div>
+                        <div class="row" style="margin-left: 30px">
+                            1
+                        </div>
+                        <div class="row" style="margin-left: 20px">
+                            <br>
+                            <h6>Total: </h6>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <h6>Valor (R$)</h6>
+                            <div class="row" style="margin-left: 7px">
+                                20,0
+                            </div>
+                            <div class="row" style="margin-left: 7px">
+                                85,0
+                            </div>
+                            <div class="row" style="margin-left: 7px">
+                                35,0
+                            </div>
+                            <div class="row" style="margin-left: 7px">
+                                20,0
+                            </div>
+                            <div class="row" style="margin-left: 7px">
+                                <p>
+                                    <h6>160,0</h6>
+                                </p>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        }else if(num3==2){
+            cd3.innerHTML=
+            `<div class="card-body">Status do Pedido:
+                <br>
+                <button href="#" class="btn btn-primary" style="width: 150px; height: 90px; background-color:rgb(255, 150, 0); border-color: rgb(255, 150, 0); 
+                    margin-left: 25px; margin-right: 25px">Aguardando emissão de nota fiscal</button>
+                <button href="#" class="btn btn-primary" style="width: 150px; height: 90px; background-color:rgb(255, 150, 0); border-color: rgb(255, 150, 0); 
+                    margin-left: 25px; margin-right: 25px">Pedido em transporte via Correios </button>
+                <button href="#" class="btn btn-primary" style="width: 150px; height: 90px; background-color:rgb(255, 150, 0); border-color: rgb(255, 150, 0); 
+                    margin-left: 25px; margin-right: 25px">Pedido entregue no endereço do cliente</button>
+            </div>`;
+        }else{
+            cd3.innerHTML=
+            `<div class="grid">
+                        <div class="row">
+                        <div class="col-sm">
+                            <h6>Dados do cliente</h6>
+                                <div class="row" style="margin-left: 7px">
+                                    Henrique Passos Arrazão 
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                    Data de nascimento: 
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                    E-mail: henriquepassosarrazo@gmail.com
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                    Telefone: (47) 99609-4079
+                                </div>
+                        </div>
+                    
+                        <div class="col-sm">
+                            <h6>Endereço para entrega</h6>
+                                <div class="row" style="margin-left: 7px">
+                                    Rua Marechal Hermes da Fonseca
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                    N° 236
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                        Bairro: Salto Weissbach
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                    Blumenau - SC
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                </div>`;
+        }
+    }
+
+    
+
+    function mudarNumero4(num4){
+        console.log(num4);
+        var cd4 = document.querySelector("#mudarAbas4");
+        if(num4==1){
+            cd4.innerHTML=
+            `<div class="grid">
+                    <div class="row">
+                        <div class="col-sm">
+                            <h6>Produtos</h6>
+                            <div class="row" style="margin-left: 7px">
+                                <li style="width: 300px">Osso (Furacão Pet)</li>
+                            </div>
+                            <div class="row" style="margin-left: 7px">
+                                <li style="width: 300px">Ração para cachorro 10kg (Pedigree)</li>
+                            </div>
+                            <div class="row" style="margin-left: 7px">
+                                <li style="width: 300px">Ração para gato 5kg (Whiskas)</li>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <h6>Quantidade</h6>
+                            <div class="row" style="margin-left: 7px">
+                                3
+                            </div>
+                            <div class="row" style="margin-left: 7px">
+                                1
+                            </div>
+                            <div class="row" style="margin-left: 7px">
+                                2
+                            </div>
+                            <div class="row" style="margin-left: 7px">
+                                <br>
+                                <h6>Total: </h6>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <h6>Valor (R$)</h6>
+                                <div class="row" style="margin-left: 7px">
+                                    10,0
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                    100,0
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                    30,0
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                    <p>
+                                        <h6>190,0</h6>
+                                    </p>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+        }else if(num4==2){
+            cd4.innerHTML=
+            `<div class="card-body">Status do Pedido:
+                <br>
+                <button href="#" class="btn btn-primary" style="width: 150px; height: 90px; background-color:rgb(255, 150, 0); border-color: rgb(255, 150, 0); 
+                    margin-left: 25px; margin-right: 25px">Aguardando emissão de nota fiscal</button>
+                <button href="#" class="btn btn-primary" style="width: 150px; height: 90px; background-color:rgb(255, 150, 0); border-color: rgb(255, 150, 0); 
+                    margin-left: 25px; margin-right: 25px">Pedido em transporte via Correios </button>
+                <button href="#" class="btn btn-primary" style="width: 150px; height: 90px; background-color:rgb(255, 150, 0); border-color: rgb(255, 150, 0); 
+                    margin-left: 25px; margin-right: 25px">Pedido entregue no endereço do cliente</button>
+            </div>`;
+        }else{
+            cd4.innerHTML=
+            `<div class="grid">
+                        <div class="row">
+                        <div class="col-sm">
+                            <h6>Dados do cliente</h6>
+                                <div class="row" style="margin-left: 7px">
+                                    Luanda Raira de Carvalho
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                    Data de nascimento: 
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                    E-mail: luhraira@gmail.com 
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                    Telefone: (81) 99916-6281
+                                </div>
+                        </div>
+                    
+                        <div class="col-sm">
+                            <h6>Endereço para entrega</h6>
+                                <div class="row" style="margin-left: 7px">
+                                    Rua 7 de Setembro
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                    N° 1600
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                        Bairro: Centro
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                    Blumenau - SC
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        }
+    }
+
+    </script>
+    
+    
+</head>
+<body>
+    <div style="margin-left: 300px; margin-right: 300px">
+        <label>Pesquisar pedido:</label>
+        <input class="form-control" id="pesquisaPedido" aria-describedby="emailHelp" style="max-width: 200px">
+        <button class="btn btn-primary" type="submit" style="background-color:rgb(255, 150, 0); border-color: rgb(255, 150, 0)">Pesquisar</button>
+
+        <div class="card text" >
+            <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs justify-content-center">
+                <li class="nav-item">
+                    <button class="nav-link active" onclick='mudarNumero(1)' style="color:rgb(255, 150, 0)">Detalhes do Pedido</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link active" onclick='mudarNumero(2)' style="color:rgb(255, 150, 0)">Status do Pedido</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link active" onclick='mudarNumero(3)' style="color:rgb(255, 150, 0)">Informações do cliente</button>
+                </li>
+            </ul>
+            </div>
+            <div class="card-header bg-transparent">ID do Pedido: 987654</div>
+            <div class="card-body" id="mudarAbas">
+                    <div class="grid">
+                        <div class="row">
+                            <div class="col-sm">
+                                <h6>Produtos</h6>
+                                <div class="row" style="margin-left: 7px">
+                                    <li style="width: 300px">Bolinhas (Furacão Pet)</li>
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                    <li style="width: 300px">Ração para cachorro 5kg (Pedigree)</li>
+                                </div>
+                                <div class="row" style="margin-left: 7px">
+                                    <li style="width: 300px">Ração para gato 1kg (Whiskas)</li>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <h6 style="margin-left: 0px">Quantidade</h6>
+                                <div class="row" style="margin-left: 30px">
+                                    2
+                                </div>
+                                <div class="row" style="margin-left: 30px">
+                                    1
+                                </div>
+                                <div class="row" style="margin-left: 30px">
+                                    1
+                                </div>
+                                <div class="row" style="margin-left: 20px">
+                                    <br>
+                                    <h6>Total: </h6>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <h6>Valor (R$)</h6>
+                                    <div class="row" style="margin-left: 20px">
+                                        20,0
+                                    </div>
+                                    <div class="row" style="margin-left: 20px">
+                                        65,0
+                                    </div>
+                                    <div class="row" style="margin-left: 20px">
+                                        30,0
+                                    </div>
+                                    <div class="row" style="margin-left: 17px">
+                                        <p>
+                                            <h6>135,0</h6>
+                                        </p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+        </div>
+
+        <div class="card text" >
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs justify-content-center">
+                    <li class="nav-item">
+                        <button class="nav-link active" onclick='mudarNumero2(1)' style="color:rgb(255, 150, 0)">Detalhes do Pedido</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link active" onclick='mudarNumero2(2)' style="color:rgb(255, 150, 0)">Status do Pedido</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link active" onclick='mudarNumero2(3)' style="color:rgb(255, 150, 0)">Informações do cliente</button>
+                    </li>
+                </ul>
+            </div>
+                <div class="card-header bg-transparent">ID do Pedido: 654987</div>
+                <div class="card-body" id="mudarAbas2">
+                        <div class="grid">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h6>Produtos</h6>
+                                    <div class="row" style="margin-left: 7px">
+                                        <li style="width: 300px">Bolinhas (Furacão Pet)</li>
+                                    </div>
+                                    <div class="row" style="margin-left: 7px">
+                                        <li style="width: 300px">Ração para cachorro 5kg (Pedigree)</li>
+                                    </div>
+                                    <div class="row" style="margin-left: 7px">
+                                        <li style="width: 300px">Ração para gato 1kg (Whiskas)</li>
+                                    </div>
+                                    <div class="row" style="margin-left: 7px">
+                                        <li style="width: 300px">Pote para água 500ml (Furacão Pet)</li>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <h6 style="margin-left: 0px">Quantidade</h6>
+                                    <div class="row" style="margin-left: 30px">
+                                        2
+                                    </div>
+                                    <div class="row" style="margin-left: 30px">
+                                        1
+                                    </div>
+                                    <div class="row" style="margin-left: 30px">
+                                        1
+                                    </div>
+                                    <div class="row" style="margin-left: 30px">
+                                        1
+                                    </div>
+                                    <div class="row" style="margin-left: 20px">
+                                        <br>
+                                        <h6>Total: </h6>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <h6>Valor (R$)</h6>
+                                        <div class="row" style="margin-left: 20px">
+                                            20,0
+                                        </div>
+                                        <div class="row" style="margin-left: 20px">
+                                            65,0
+                                        </div>
+                                        <div class="row" style="margin-left: 20px">
+                                            30,0
+                                        </div>
+                                        <div class="row" style="margin-left: 20px">
+                                            20,0
+                                        </div>
+                                        <div class="row" style="margin-left: 17px">
+                                        <p>
+                                            <h6>155,0</h6>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+            </div>
+
+            <div class="card text" >
+                    <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs justify-content-center">
+                        <li class="nav-item">
+                            <button class="nav-link active" onclick='mudarNumero3(1)' style="color:rgb(255, 150, 0)">Detalhes do Pedido</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link active" onclick='mudarNumero3(2)' style="color:rgb(255, 150, 0)">Status do Pedido</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link active" onclick='mudarNumero3(3)' style="color:rgb(255, 150, 0)">Informações do cliente</button>
+                        </li>
+                    </ul>
+                    </div>
+                    <div class="card-header bg-transparent">ID do Pedido: 753159</div>
+                    <div class="card-body" id="mudarAbas3">
+                            <div class="grid">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <h6>Produtos</h6>
+                                        <div class="row" style="margin-left: 7px">
+                                            <li style="width: 300px">Pote para comida 500ml (Furacão Pet)</li>
+                                        </div>
+                                        <div class="row" style="margin-left: 7px">
+                                            <li style="width: 300px">Ração para cachorro 7,5kg (Pedigree)</li>
+                                        </div>
+                                        <div class="row" style="margin-left: 7px">
+                                            <li style="width: 300px">Ração para gato 1kg (Whiskas)</li>
+                                        </div>
+                                        <div class="row" style="margin-left: 7px">
+                                            <li style="width: 300px">Pote para água 500ml (Furacão Pet)</li>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm">
+                                        <h6>Quantidade</h6>
+                                        <div class="row" style="margin-left: 30px">
+                                            1
+                                        </div>
+                                        <div class="row" style="margin-left: 30px">
+                                            1
+                                        </div>
+                                        <div class="row" style="margin-left: 30px">
+                                            1
+                                        </div>
+                                        <div class="row" style="margin-left: 30px">
+                                            1
+                                        </div>
+                                        <div class="row" style="margin-left: 20px">
+                                            <br>
+                                            <h6>Total: </h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm">
+                                        <h6>Valor (R$)</h6>
+                                            <div class="row" style="margin-left: 20px">
+                                                20,0
+                                            </div>
+                                            <div class="row" style="margin-left: 20px">
+                                                85,0
+                                            </div>
+                                            <div class="row" style="margin-left: 20px">
+                                                35,0
+                                            </div>
+                                            <div class="row" style="margin-left: 20px">
+                                                20,0
+                                            </div>
+                                            <div class="row" style="margin-left: 17px">
+                                                <p>
+                                                    <h6>160,0</h6>
+                                                </p>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="card text" >
+                        <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs justify-content-center">
+                            <li class="nav-item">
+                                <button class="nav-link active" onclick='mudarNumero4(1)' style="color:rgb(255, 150, 0)">Detalhes do Pedido</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link active" onclick='mudarNumero4(2)' style="color:rgb(255, 150, 0)">Status do Pedido</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link active" onclick='mudarNumero4(3)' style="color:rgb(255, 150, 0)">Informações do cliente</button>
+                            </li>
+                        </ul>
+                        </div>
+                        <div class="card-header bg-transparent">ID do Pedido: 159753</div>
+                        <div class="card-body" id="mudarAbas4">
+                                <div class="grid">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <h6>Produtos</h6>
+                                            <div class="row" style="margin-left: 7px">
+                                                <li style="width: 300px">Osso (Furacão Pet)</li>
+                                            </div>
+                                            <div class="row" style="margin-left: 7px">
+                                                <li style="width: 300px">Ração para cachorro 10kg (Pedigree)</li>
+                                            </div>
+                                            <div class="row" style="margin-left: 7px">
+                                                <li style="width: 300px">Ração para gato 5kg (Whiskas)</li>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm">
+                                            <h6>Quantidade</h6>
+                                            <div class="row" style="margin-left: 7px">
+                                                3
+                                            </div>
+                                            <div class="row" style="margin-left: 7px">
+                                                1
+                                            </div>
+                                            <div class="row" style="margin-left: 7px">
+                                                2
+                                            </div>
+                                            <div class="row" style="margin-left: 7px">
+                                                <br>
+                                                <h6>Total: </h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm">
+                                            <h6>Valor (R$)</h6>
+                                                <div class="row" style="margin-left: 7px">
+                                                    10,0
+                                                </div>
+                                                <div class="row" style="margin-left: 7px">
+                                                    100,0
+                                                </div>
+                                                <div class="row" style="margin-left: 7px">
+                                                    30,0
+                                                </div>
+                                                <div class="row" style="margin-left: 7px">
+                                                    <p>
+                                                        <h6>190,0</h6>
+                                                    </p>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+        
+    
+</body>
+</html>
